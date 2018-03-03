@@ -1,0 +1,64 @@
+body {
+	font-family: Arial, sans-serif;
+	font-size: 13px;
+}
+
+header {
+	background: #CCC;
+	padding: 20px;
+	text-align: center;
+	margin-bottom: 50px;
+}
+
+nav {
+	background: #F1F1F1;
+	width: 200px;
+	padding: 20px 10px;
+	float: left;
+}
+
+section {
+	margin-left: 250px;
+}
+
+section article {
+	margin-bottom: 20px;
+	height: 150px;
+}
+
+section article img {
+	float: left;
+	height: 150px;
+	margin-right: 20px;
+}
+
+footer {
+	clear: both;
+	border-top: 1px solid #CCC;
+	text-align: center;
+	width: 60%;
+	margin: 50px auto;
+}
+
+p.error {
+	font-weight: bold;
+	color: red;
+}
+
+form{
+	margin-left: 5%;
+	margin-top: 1%;
+	width: 300px;
+	float: left;
+}
+
+label
+{
+	display:block;
+	margin-top: 10px;
+}
+input
+{
+	margin-top:10px;
+}
+
