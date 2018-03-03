@@ -3,35 +3,47 @@
 require "includes/head.php";
 ?>
 <body>
+
+
+
 	<?php
 	include_once "includes/header.php";
 
 	include_once "includes/menu.php";
-	?>
 
-	<section>
-		<article>
-			<img src="./tree.jpg" alt="Arbre" />
-			<h3>Ma première publication</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-			</p>
-		</article>
-		<article>
-			<img src="./tree.jpg" alt="Arbre" />
-			<h3>Ma deuxième publication</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-			</p>
-		</article>
-		<article>
-			<img src="./tree.jpg" alt="Arbre" />
-			<h3>Ma troisième publication</h3>
-			<p>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt 
-			</p>
-		</article>
-	</section>
+
+try
+{
+	$bdd = new PDO('mysql:host=localhost;dbname=blogDB;charset=utf8', 'root', '');
+}
+catch (Exception $e)
+{
+        die('Erreur : ' . $e->getMessage());
+}
+
+	$reponse = $bdd->query('SELECT * FROM publications');
+?>
+
+<section>
+
+<?php
+while ($donnees = $reponse->fetch())
+{
+?>
+	<article>
+		<img src="<?php echo $donnees['image']; ?>" alt="Arbre" />
+		<h3><?php echo $donnees['titre']; ?></h3>
+		<p>
+			<?php echo $donnees['corp']; ?>
+		</p>
+	</article>
+<?php
+}
+$reponse->closeCursor(); // Termine le traitement de la requête ?>
+
+
+</section>
+	
 	<?php
 	include_once "includes/footer.php";
 	?>
