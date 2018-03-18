@@ -4,13 +4,10 @@ require "includes/head.php";
 ?>
 <body>
 
-
-
 	<?php
 	include_once "includes/header.php";
 
 	include_once "includes/menu.php";
-
 
 try
 {
@@ -22,6 +19,7 @@ catch (Exception $e)
 }
 
 	$reponse = $bdd->query('SELECT * FROM publications');
+
 ?>
 
 <section>

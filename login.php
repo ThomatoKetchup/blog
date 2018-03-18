@@ -1,3 +1,34 @@
+<?php 
+
+require "includes/connectDB.php";
+
+session_start();
+
+if(isset($_POST['formconnexion'])) {
+   $mailconnect = htmlspecialchars($_POST['mailconnect']);
+   $mdpconnect = sha1($_POST['mdpconnect']);
+   if(!empty($mailconnect) AND !empty($mdpconnect)) {
+      $requser = $bdd->prepare("SELECT * FROM membre WHERE mail = ? AND pass = ?");
+      $requser->execute(array($mailconnect, $mdpconnect));
+      $userexist = $requser->rowCount();
+      if($userexist == 1) {
+         $userinfo = $requser->fetch();
+         $_SESSION['id'] = $userinfo['id'];
+         $_SESSION['mail'] = $userinfo['mail'];
+         $_SESSION['connect'] = 1;
+          $_SESSION['admin'] = $userinfo['admin'];
+
+         header("Location: index.php?id=".$_SESSION['id']);
+      } else {
+         $erreur = "Mauvais mail ou mot de passe !";
+      }
+   } else {
+      $erreur = "Tous les champs doivent être complétés !";
+   }
+}
+
+?>
+
 <!DOCTYPE html>
 <?php
 require "includes/head.php";
@@ -8,23 +39,21 @@ require "includes/head.php";
 
 	include_once "includes/menu.php";
 	?>
-
-
-
-
-	<form name="connexion" action="test" method="POST">
-		<h2>Se connecter</h2>
-		<label for="pseudo">Pseudo :</label> 
-		<input type="text" name="pseudo"/>
-		<label>Mot de passe :</label>
-		<input type="text" name="pwd"/>
-
-		
-		<input type="submit" value="Se connecter">
-
-		<p class="inscrire">Vous n'avez pas encore de compte ? <a href="/blog/signin.php">Inscrivez-vous</a></p>
-
-	</form>
+  	<div align="center">
+         <h2>Connexion</h2>
+         <br /><br />
+         <form method="POST" action="">
+            <input type="email" name="mailconnect" placeholder="Mail" />
+            <input type="password" name="mdpconnect" placeholder="Mot de passe" />
+            <br /><br />
+            <input type="submit" name="formconnexion" value="Se connecter !" />
+         </form>
+         <?php
+         if(isset($erreur)) {
+            echo '<font color="red">'.$erreur."</font>";
+         }
+         ?>
+      </div>
 
 
 
