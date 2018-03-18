@@ -3,7 +3,6 @@
 require "includes/connectDB.php";
 
 session_start();
-
 if(isset($_POST['formconnexion'])) {
    $mailconnect = htmlspecialchars($_POST['mailconnect']);
    $mdpconnect = sha1($_POST['mdpconnect']);
@@ -16,7 +15,7 @@ if(isset($_POST['formconnexion'])) {
          $_SESSION['id'] = $userinfo['id'];
          $_SESSION['mail'] = $userinfo['mail'];
          $_SESSION['connect'] = 1;
-          $_SESSION['admin'] = $userinfo['admin'];
+         $_SESSION['admin'] = $userinfo['admin'];
 
          header("Location: index.php?id=".$_SESSION['id']);
       } else {
@@ -53,6 +52,8 @@ require "includes/head.php";
             echo '<font color="red">'.$erreur."</font>";
          }
          ?>
+
+      <p >Vous n'avez pas de compte? <a href="inscription.php">Inscrivez vous</a></p>
       </div>
 
 

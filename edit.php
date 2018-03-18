@@ -41,17 +41,9 @@ require "includes/head.php";
 	include_once "includes/header.php";
 
 	include_once "includes/menu.php";
+	?>
 
-try
-{
-	$bdd = new PDO('mysql:host=localhost;dbname=blogDB;charset=utf8', 'root', '');
-}
-catch (Exception $e)
-{
-        die('Erreur : ' . $e->getMessage());
-}
-
-	//$reponse = $bdd->query('SELECT * FROM publications WHERE id=2');
+	<?php
       $reponse = $bdd->prepare("SELECT * FROM publications WHERE id =?");
       $reponse->execute(array($_GET['edit']));
 ?>

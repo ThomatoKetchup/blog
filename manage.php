@@ -1,7 +1,6 @@
 <?php
 include_once('includes/connectDB.php');
 session_start();
-var_dump($_SESSION['admin']);
 if (isset($_SESSION['connect']))//On vérifie que le variable existe.
 {
         $connect=$_SESSION['connect'];//On récupère la valeur de la variable de session.
@@ -38,9 +37,15 @@ require "includes/head.php";
 <a href="/blog/add.php">Ajoutez une publication</a></body></br></br>
 
 <?php
-  while( $donnees = $reponse->fetch())
+  var_dump($_SESSION['admin'] );
+  while( $donnees = $reponse->fetch()){
     echo "$donnees[id]. $donnees[titre] 
-                <a href='edit.php?edit=$donnees[id]'>edit</a><br />";
+    <a href='edit.php?edit=$donnees[id]'>edit </a>";
+    if($_SESSION['admin'] == 1){
+        echo "<a href='delete.php?edit=$donnees[id]'>delete</a>";
+    }
+    echo "</br>";
+  }
 $reponse->closeCursor(); // Termine le traitement de la requête ?>
 
 
