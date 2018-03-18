@@ -1,32 +1,32 @@
 <?php
-	include_once('includes/connectDB.php');
- 
-	if( isset($_GET['edit']) )
+include_once('includes/connectDB.php');
+
+if( isset($_GET['edit']) )
+{
+
+	$id = $_GET['edit'];
+	if( isset($_POST['newImage']) )
 	{
+		$newImage = htmlspecialchars($_POST['newImage']);
+		$editpub = $bdd->prepare("UPDATE publications SET image= ? WHERE id= ?");    
+		$editpub->execute(array($newImage, $id));
+	}
+	if( isset($_POST['corp']) )
+	{
+		$newCorp = htmlspecialchars($_POST['newCorp']);
 
-		$id = $_GET['edit'];
-		if( isset($_POST['newImage']) )
-		{
-		   	$newImage = htmlspecialchars($_POST['newImage']);
-		    $editpub = $bdd->prepare("UPDATE publications SET image= ? WHERE id= ?");    
-		    $editpub->execute(array($newImage, $id));
-		}
-		if( isset($_POST['corp']) )
-		{
-	   	$newCorp = htmlspecialchars($_POST['newCorp']);
-
-	    $editpub = $bdd->prepare("UPDATE publications SET corp= ? WHERE id= ?");    
-	    $editpub->execute(array($newCorp, $id));
+		$editpub = $bdd->prepare("UPDATE publications SET corp= ? WHERE id= ?");    
+		$editpub->execute(array($newCorp, $id));
 	}
 	if( isset($_POST['titre']) )
-		{
-	   	$titre = htmlspecialchars($_POST['titre']);
-	    $editpub = $bdd->prepare("UPDATE publications SET titre= ? WHERE id= ?");    
-	    $editpub->execute(array($titre, $id));
+	{
+		$titre = htmlspecialchars($_POST['titre']);
+		$editpub = $bdd->prepare("UPDATE publications SET titre= ? WHERE id= ?");    
+		$editpub->execute(array($titre, $id));
 	}
-	}
- 
-	
+}
+
+
 ?>
 
 
@@ -44,48 +44,48 @@ require "includes/head.php";
 	?>
 
 	<?php
-      $reponse = $bdd->prepare("SELECT * FROM publications WHERE id =?");
-      $reponse->execute(array($_GET['edit']));
-?>
+	$reponse = $bdd->prepare("SELECT * FROM publications WHERE id =?");
+	$reponse->execute(array($_GET['edit']));
+	?>
 
-<section>
+	<section>
 
-<?php
-$donnees = $reponse->fetch()
-?>
-	<article>
-		<h3><?php echo $donnees['titre']; ?></h3>
-		<p>
-			<?php echo $donnees['corp']; ?>
-		</p>
-	</article>
-<?php
+		<?php
+		$donnees = $reponse->fetch()
+		?>
+		<article>
+			<h3><?php echo $donnees['titre']; ?></h3>
+			<p>
+				<?php echo $donnees['corp']; ?>
+			</p>
+		</article>
+		<?php
 
-$reponse->closeCursor(); // Termine le traitement de la requête ?>
+		$reponse->closeCursor(); // Termine le traitement de la requête ?>
 
-<form action="" method="POST">
+		<form action="" method="POST">
 
-Image :
-<input type="text" name="newImage" value="<?php echo $donnees['image']; ?>"/><br/>
-
-
-Titre :
-<input type="text" name="titre" value="<?php echo $donnees['titre']; ?>"/><br/>
-
-Corps:
-<textarea type="text" name="newCorp" rows="10" cols="50">
-	<?php echo $donnees['corp']; ?>
-</textarea> 
-<input type="submit" name="corp" value=" Update "/>
-</form>
- <?php
- if(isset($erreur)) {
-    echo '<font color="red">'.$erreur."</font>";
- }
- ?>
+			Image :
+			<input type="text" name="newImage" value="<?php echo $donnees['image']; ?>"/><br/>
 
 
-</section>
+			Titre :
+			<input type="text" name="titre" value="<?php echo $donnees['titre']; ?>"/><br/>
+
+			Corps:
+			<textarea type="text" name="newCorp" rows="10" cols="50">
+				<?php echo $donnees['corp']; ?>
+			</textarea> 
+			<input type="submit" name="corp" value=" Update "/>
+		</form>
+		<?php
+		if(isset($erreur)) {
+			echo '<font color="red">'.$erreur."</font>";
+		}
+		?>
+
+
+	</section>
 	
 	<?php
 	include_once "includes/footer.php";

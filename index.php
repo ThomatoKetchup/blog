@@ -9,38 +9,38 @@ require "includes/head.php";
 
 	include_once "includes/menu.php";
 
-try
-{
-	$bdd = new PDO('mysql:host=localhost;dbname=blogDB;charset=utf8', 'root', '');
-}
-catch (Exception $e)
-{
-        die('Erreur : ' . $e->getMessage());
-}
+	try
+	{
+		$bdd = new PDO('mysql:host=localhost;dbname=blogDB;charset=utf8', 'root', '');
+	}
+	catch (Exception $e)
+	{
+		die('Erreur : ' . $e->getMessage());
+	}
 
 	$reponse = $bdd->query('SELECT * FROM publications');
 
-?>
+	?>
 
-<section>
+	<section>
 
-<?php
-while ($donnees = $reponse->fetch())
-{
-?>
-	<article>
-		<img src="<?php echo $donnees['image']; ?>" alt="Arbre" />
-		<h3><?php echo $donnees['titre']; ?></h3>
-		<p>
-			<?php echo $donnees['corp']; ?>
-		</p>
-	</article>
-<?php
-}
-$reponse->closeCursor(); // Termine le traitement de la requête ?>
+		<?php
+		while ($donnees = $reponse->fetch())
+		{
+			?>
+			<article>
+				<img src="<?php echo $donnees['image']; ?>" alt="Arbre" />
+				<h3><?php echo $donnees['titre']; ?></h3>
+				<p>
+					<?php echo $donnees['corp']; ?>
+				</p>
+			</article>
+			<?php
+		}
+		$reponse->closeCursor(); // Termine le traitement de la requête ?>
 
 
-</section>
+	</section>
 	
 	<?php
 	include_once "includes/footer.php";

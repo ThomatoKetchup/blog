@@ -21,9 +21,9 @@ require "includes/head.php";
 
 	include_once "includes/menu.php";
 
-?>
+	?>
 
-<p>Vous avez été deconnecté.</p>
+	<p>Vous avez été deconnecté.</p>
 
 
 	

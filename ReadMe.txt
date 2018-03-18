@@ -20,6 +20,6 @@ CREATE TABLE IF NOT EXISTS `publications` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-En cas de problème, je vous joins également un export de ma base de donnée. 
+En cas de problème, je vous joins également un export de ma base de donnée et le Git du blog : https://github.com/ThomatoKetchup/blog
 
 
